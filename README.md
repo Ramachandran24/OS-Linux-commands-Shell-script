@@ -83,7 +83,9 @@ cat > file22
 cut -c1-3 file11
 ## OUTPUT
 
-
+1001
+1002
+1003
 
 
 cut -d "|" -f 1 file22
