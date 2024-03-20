@@ -43,22 +43,55 @@ s.n. dasgupta
 cat < file1
 ## OUTPUT
 
+chanchal singhvi
+c.k. shukla
+s.n. dasgupta
+sumit chakrobarty
+
 
 
 cat < file2
 ## OUTPUT
+anil aggarwal
+barun sengupta
+c.k. shukla
+lalit chowdury
+s.n. dasgupta
+
+
 
 
 # Comparing Files
 cmp file1 file2
 ## OUTPUT
+
+file1 file2 differ: byte 1, line 1
  
 comm file1 file2
  ## OUTPUT
 
+anil aggarwal
+	barun sengupta
+chanchal singhvi
+		c.k. shukla
+	lalit chowdury
+		s.n. dasgupta
+sumit chakrobarty
+
  
 diff file1 file2
 ## OUTPUT
+
+1c1,2
+< chanchal singhvi
+---
+> anil aggarwal
+> barun sengupta
+2a4
+> lalit chowdury
+4d5
+< sumit chakrobarty
+
 
 
 #Filters
@@ -83,65 +116,94 @@ cat > file22
 cut -c1-3 file11
 ## OUTPUT
 
-1001
-1002
-1003
+Hel
+Thi
 
 
 cut -d "|" -f 1 file22
 ## OUTPUT
 
+1001 
+1002 
+1003 
 
 
 cut -d "|" -f 2 file22
 ## OUTPUT
+
+Ram 
+ tom 
+ Joe 
 
 
 cat < newfile 
 ```
 Hello world
 hello world
+Linux is world number 1
+Unix is predecessor
+Linux is best in this World
+
 ^d
 ````
 cat > newfile 
 Hello world
 hello world
+Linux is world number 1
+Unix is predecessor
+Linux is best in this World
+
  
 grep Hello newfile 
 ## OUTPUT
 
-
+Hello world
 
 grep hello newfile 
 ## OUTPUT
 
-
+hello world
 
 
 grep -v hello newfile 
 ## OUTPUT
 
+Hello world
+Linux is world number 1
+Unix is predecessor
+Linux is best in this World
 
 
 cat newfile | grep -i "hello"
 ## OUTPUT
 
-
+Hello world
+hello world
 
 
 cat newfile | grep -i -c "hello"
 ## OUTPUT
 
-
+2
 
 
 grep -R ubuntu /etc
 ## OUTPUT
 
+", TAG+="snap_snap-store_ubuntu-software-local-file"
+/etc/udev/rules.d/70-snap.snap-store.rules:TAG=="snap_snap-store_ubuntu-software-local-file", SUBSYSTEM!="module", SUBSYSTEM!="subsystem", RUN+="/usr/lib/snapd/snap-device-helper $env{ACTION} snap_snap-store_ubuntu-software-local-file $devpath $major:$minor"
+/etc/rc5.d/S01acpid:        MODULES="$(sed -rn 's#^(/lib/modules/[^/]+/)?kernel/(drivers|ubuntu)/acpi/([^/]+/)*(.*)\.ko:.*#\4#p' "/lib/modules/$(uname -r)/modules.dep")"
+/etc/rc5.d/S01whoopsie:DAEMON=/bin/sh -c 'export CRASH_DB_URL=https://daisy.ubuntu.com; exec whoopsie -f'
+
 
 
 grep -w -n world newfile   
 ## OUTPUT
+
+1:Hello world
+2:hello world
+3:Linux is world number 1
+
 
 
 cat < newfile 
@@ -166,58 +228,83 @@ Linux is best in this World
 egrep -w 'Hello|hello' newfile 
 ## OUTPUT
 
+Hello world
+hello world
+
 
 
 egrep -w '(H|h)ello' newfile 
 ## OUTPUT
+
+Hello world
+hello world
 
 
 
 egrep -w '(H|h)ell[a-z]' newfile 
 ## OUTPUT
 
-
+Hello world
+hello world
 
 
 egrep '(^hello)' newfile 
 ## OUTPUT
 
-
+hello world
 
 egrep '(world$)' newfile 
 ## OUTPUT
 
+Hello world
+hello world
 
 
 egrep '(World$)' newfile 
 ## OUTPUT
 
+Linux is the best in this World
+
 
 egrep '((W|w)orld$)' newfile 
 ## OUTPUT
 
+Hello world
+hello world
+Linux is best in this World
 
 
 egrep '[1-9]' newfile 
 ## OUTPUT
+
+Linux is world number 1
 
 
 
 egrep 'Linux.*world' newfile 
 ## OUTPUT
 
+Linux is world number 1
+
 
 egrep 'Linux.*World' newfile 
 ## OUTPUT
+
+Linux is best in this world
 
 
 egrep l{2} newfile
 ## OUTPUT
 
-
+Hello world
+hello world
 
 egrep 's{1,2}' newfile
 ## OUTPUT 
+
+Linux is world number 1
+Unix is predecessor
+Linux is best in this World
 
 
 cat > file23
@@ -237,78 +324,156 @@ cat > file23
 sed -n -e '3p' file23
 ## OUTPUT
 
+1002 | tom |  5000 | Admin
 
 
 sed -n -e '$p' file23
 ## OUTPUT
 
+1001 | Ram | 10000 | HR
 
 
 sed  -e 's/Ram/Sita/' file23
 ## OUTPUT
+
+1001 | Sita | 10000 | HR
+1001 | Sita | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Sita | 10000 | HR
+
 
 
 
 sed  -e '2s/Ram/Sita/' file23
 ## OUTPUT
 
+1001 | Ram | 10000 | HR
+1001 | Sita | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
 
 
 sed  '/tom/s/5000/6000/' file23
 ## OUTPUT
+
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  6000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
 
 
 
 sed -n -e '1,5p' file23
 ## OUTPUT
 
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+
 
 
 sed -n -e '2,/Joe/p' file23
 ## OUTPUT
 
-
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
 
 
 sed -n -e '/tom/,/Joe/p' file23
 ## OUTPUT
 
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
 
 
 seq 10 
 ## OUTPUT
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
 
 
 
 seq 10 | sed -n '4,6p'
 ## OUTPUT
 
+4
+5
+6
 
 
 seq 10 | sed -n '2,~4p'
 ## OUTPUT
 
+sed: -e expression #1, char 3: unexpected ','
 
 
 seq 3 | sed '2a hello'
 ## OUTPUT
 
+1
+2
+hello
+3
 
 
 seq 2 | sed '2i hello'
 ## OUTPUT
 
+1
+hello
+2
+
 
 seq 10 | sed '2,9c hello'
 ## OUTPUT
 
+1
+hello
+10
 
 sed -n '2,4{s/^/$/;p}' file23
 ## OUTPUT
 
+$1001 | Ram | 10000 | HR
+$1002 | tom |  5000 | Admin
+$1003 | Joe |  7000 | Developer
+
 
 
 sed -n '2,4{s/$/*/;p}' file23
+
+
+## Output
+
+1001 | Ram | 10000 | HR*
+1002 | tom |  5000 | Admin*
+1003 | Joe |  7000 | Developer*
+
 
 
 #Sorting File content
@@ -323,6 +488,12 @@ cat > file21
 sort file21
 ## OUTPUT
 
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1004 | Sit |  7000 | Dev
+1005 | Sam |  5000 | HR
+
 
 cat > file22
 ```
@@ -336,12 +507,29 @@ cat > file22
 uniq file22
 ## OUTPUT
 
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+
+
 
 
 #Using tr command
 
 cat file23 | tr [:lower:] [:upper:]
  ## OUTPUT
+ 
+ 1001 | RAM | 10000 | HR
+1001 | RAM | 10000 | HR
+1002 | TOM |  5000 | ADMIN
+1003 | JOE |  7000 | DEVELOPER
+1005 | SAM |  5000 | HR
+1004 | SIT |  7000 | DEV
+1003 | JOE |  7000 | DEVELOPER
+1001 | RAM | 10000 | HR
+
 
 cat < urllist.txt
 ```
@@ -359,11 +547,18 @@ www. mrcet.... com
 cat urllist.txt | tr -d ' '
  ## OUTPUT
 
+www.yahoo.com
+www.google.com
+www.mrcet....com
+
 
  
 cat urllist.txt | tr -d ' ' | tr -s '.'
 ## OUTPUT
 
+www.yahoo.com
+www.google.com
+www.mrcet.com
 
 
 #Backup commands
@@ -450,14 +645,30 @@ chmod 777 scriptest.sh
 
 ## OUTPUT
 
+“File name is ./scriptest.sh ”
+File name is  scriptest.sh
+“First arg. is ” 1
+“Second arg. is ” 2
+“Third arg. is ” 3
+“Fourth arg. is ”
+The $@ is  1 2 3
+The $\# is  1#
+The $$ is  6130
+    PID TTY          TIME CMD
+   5624 pts/0    00:00:00 bash
+   6130 pts/0    00:00:00 bash
+   6133 pts/0    00:00:00 ps
+
+
  
 ls file1
 ## OUTPUT
+file1
 
 echo $?
 ## OUTPUT 
-./one
-bash: ./one: Permission denied
+
+0
  
 echo $?
 ## OUTPUT 
@@ -467,7 +678,7 @@ abcd
 echo $?
  ## OUTPUT
 
-
+127
  
 # mis-using string comparisons
 
@@ -506,6 +717,8 @@ chmod 755 strcomp.sh
 ./strcomp.sh 
 ## OUTPUT
 
+baseball is less than hockey
+
 
 # check file ownership
 cat < psswdperm.sh 
@@ -532,6 +745,8 @@ fi
  ```
 ./psswdperm.sh
 ## OUTPUT
+
+Sorry, you are not the owner of the /etc/passwd file
 
 # check if with file location
 cat>ifnested.sh 
@@ -671,6 +886,11 @@ $ chmod 755 ifnested.sh
  
 $ ./ifnested.sh 
 ##OUTPUT
+
+“/home/ram The object exists, is it a file?”
+“No,/home/ram it is not a file!”
+“But /home/ram/.bash_history is a file!”
+
 
 # looking for a possible value using elif
 cat elifcheck.sh 
