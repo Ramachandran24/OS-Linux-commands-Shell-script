@@ -1205,8 +1205,9 @@ fi
 
  ./funcex.sh 1 2
 
- ![Function](https://OS-Linux-commands-Shell-script/funcexscreenshoot.png)
+![alt text][image]
 
+[image]: /OS-Linux-commands-Shell-script/funcexscreenshoot.png
  
 cat argshift.sh
 ```bash
