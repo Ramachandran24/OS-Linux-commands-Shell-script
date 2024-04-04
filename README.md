@@ -1282,6 +1282,11 @@ ubcdfghj
 ```
 awk -f nc.awk data.dat
 ## OUTPUT 
+
+![alt text][image]
+
+[image]: wordscount.png
+
  
 cat > palindrome.sh
 ```bash
@@ -1309,6 +1314,10 @@ else
 fi
 ```
 ## OUTPUT 
+
+![alt text][image]
+
+[image]: palindromess.png
 
 
 # RESULT:
